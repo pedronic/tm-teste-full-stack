@@ -1,4 +1,4 @@
-package com.api.backend.configs.jwt;
+/* package com.api.backend.configs.jwt;
 
 public class UsernameAndPasswordAuthenticationRequest {
 
@@ -24,3 +24,4 @@ public class UsernameAndPasswordAuthenticationRequest {
         this.password = password;
     }
 }
+ */

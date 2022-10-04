@@ -2,7 +2,6 @@ package com.api.backend.configs.jwt;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 import com.google.common.net.HttpHeaders;
 

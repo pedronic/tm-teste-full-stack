@@ -36,4 +36,9 @@ build/
 
 ### Other ###
 *.zip
+old_*
+dummy_*
+fake_*
+test_*
+tutorial_*
 

@@ -19,18 +19,21 @@ public class UserModel implements UserDetails, Serializable {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userId;
-    @Column(name="username", nullable = false, unique = true)
+    @Column(name="username", nullable = false, unique = true, length = 12)
     private String username;
     @Column(name="password", nullable = false)
     private String password;
+    
     @ManyToMany
     @JoinTable(name = "TB_USERS_ROLES",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleModel> roles;
+
     @OneToMany(mappedBy = "user")
     private Set<AccountModel> accounts;
 
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles;
@@ -40,22 +43,22 @@ public class UserModel implements UserDetails, Serializable {
     public String getPassword() {
         return this.password;
     }
-
+    
     @Override
     public String getUsername() {
         return this.username;
     }
-
+    
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
-
+    
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
-
+    
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -65,27 +68,27 @@ public class UserModel implements UserDetails, Serializable {
     public boolean isEnabled() {
         return true;
     }
-
+    
     public UUID getUserId() {
         return userId;
     }
-
+    
     public void setUserId(UUID userId) {
         this.userId = userId;
     }
-
+    
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
-
+    
     public List<RoleModel> getRoles() {
         return roles;
     }
@@ -93,6 +96,13 @@ public class UserModel implements UserDetails, Serializable {
     public void setRoles(List<RoleModel> roles) {
         this.roles = roles;
     }
-
+    
+    public Set<AccountModel> getAccounts() {
+        return accounts;
+    }
+    
+    public void setAccounts(Set<AccountModel> accounts) {
+        this.accounts = accounts;
+    }
     
 }

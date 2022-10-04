@@ -31,15 +31,15 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
     private final JwtConfig jwtConfig;
 
     public JwtTokenVerifier(SecretKey secretKey,
-                            JwtConfig jwtConfig) {
+            JwtConfig jwtConfig) {
         this.secretKey = secretKey;
         this.jwtConfig = jwtConfig;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+            HttpServletResponse response,
+            FilterChain filterChain) throws ServletException, IOException {
 
         String authorizationHeader = request.getHeader(jwtConfig.getAuthorizationHeader());
 
@@ -52,8 +52,9 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
         try {
 
-            Jws<Claims> claimsJws = Jwts.parser()
+            Jws<Claims> claimsJws = Jwts.parserBuilder()
                     .setSigningKey(secretKey)
+                    .build()
                     .parseClaimsJws(token);
 
             Claims body = claimsJws.getBody();
@@ -69,8 +70,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     username,
                     null,
-                    simpleGrantedAuthorities
-            );
+                    simpleGrantedAuthorities);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 

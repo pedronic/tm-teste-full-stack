@@ -3,6 +3,8 @@ package com.api.backend.dtos;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 public class UserDto {
     
     @NotBlank
