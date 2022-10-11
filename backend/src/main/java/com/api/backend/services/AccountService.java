@@ -1,7 +1,10 @@
 package com.api.backend.services;
 
 import com.api.backend.models.AccountModel;
+import com.api.backend.models.UserModel;
 import com.api.backend.repositories.AccountRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,12 +13,14 @@ import javax.transaction.Transactional;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class AccountService {
 
+    @Autowired
     final AccountRepository accountRepository;
 
     public AccountService(AccountRepository accountRepository) {
@@ -31,14 +36,24 @@ public class AccountService {
         return this.accountRepository;
     }
 
-    public Optional<Set<AccountModel>> findByUser(UUID user) {
+    public Optional<List<AccountModel>> findByUser(UserModel user) {
         return accountRepository.findByUser(user);
     }
 
-    public Optional<Set<AccountModel>> findByAccountNumber(Integer accountNumber){
+    public Optional<AccountModel> findByAccountNumber(Integer accountNumber){
         return accountRepository.findByAccountNumber(accountNumber);
     }
 
+    public Integer max() {
+        List<Integer> _max = new ArrayList<>();
+        _max.add(0);
+        accountRepository.findAll().stream().forEach(account -> {
+            if( account.getAccountNumber() > _max.get(_max.size()-1) ) {
+                _max.add(account.getAccountNumber());
+            }
+        });
+        return _max.get(_max.size()-1);
+    }
     @Override
     public boolean equals(Object o) {
         if (o == this)
@@ -64,7 +79,8 @@ public class AccountService {
 
 
     public Page<AccountModel> findAll(Pageable pageable) {
-        return accountRepository.findAll(pageable);
+        var acc = accountRepository.findAll(pageable);
+        return acc;
     }
 
     public Optional<AccountModel> findById(UUID id) {

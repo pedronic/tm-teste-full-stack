@@ -7,6 +7,7 @@ import com.api.backend.models.FeeModel;
 
 import java.util.UUID;
 import java.util.Optional;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -14,7 +15,8 @@ public interface FeeRepository extends JpaRepository<FeeModel, UUID> {
     Optional<FeeModel> findByIntervalMinLessThanAndIntervalMaxGreaterThanEqual(Integer interval_min, Integer interval_max);
     Optional<List<FeeModel>> findByIntervalMinLessThan(Integer interval);  
     Optional<List<FeeModel>> findByIntervalMaxGreaterThanEqual(Integer interval);    
-    Optional<FeeModel> findByValueMinLessThanAndValueMaxGreaterThanEqual(Integer value_min, Integer value_max);
-    Optional<List<FeeModel>> findByValueMinLessThan(Float value); 
-    Optional<List<FeeModel>> findByValueMaxGreaterThanEqual(Float value); 
+    Optional<List<FeeModel>> findByValueMinLessThanAndValueMaxGreaterThanEqual(BigDecimal value_min, BigDecimal value_max);
+    Optional<List<FeeModel>> findByValueMinLessThan(Double value); 
+    Optional<List<FeeModel>> findByValueMaxGreaterThanEqual(Double value);
+    Optional<FeeModel> findByType(String type);
 }

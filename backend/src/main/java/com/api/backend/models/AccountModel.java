@@ -1,14 +1,20 @@
 package com.api.backend.models;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import java.util.UUID;
 import java.util.List;
 
 @Entity
 @Table(name = "TB_ACCOUNT")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "accountId" )
 public class AccountModel implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @Column(name = "account_id")
@@ -19,10 +25,11 @@ public class AccountModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer accountNumber;
     @Column(name="value",nullable = false)
-    private Float value;
+    private Double value;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
+    @JsonBackReference
     private UserModel user;
 
     @ManyToMany
@@ -31,6 +38,20 @@ public class AccountModel implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "transaction_id"))
     private List<TransactionModel> transactions;
 
+    public AccountModel(){
+        this.accountId = UUID.randomUUID();
+        this.value = 0.00;
+    }
+
+    public AccountModel(Integer accountNumber){
+        this.accountId = UUID.randomUUID();
+        this.accountNumber = accountNumber;
+    }
+    public AccountModel(Integer accountNumber, Double value){
+        this.accountId = UUID.randomUUID();
+        this.accountNumber = accountNumber;
+        this.value = value;
+    }
 
     public Integer getAccountNumber() {
         return accountNumber;
@@ -39,6 +60,7 @@ public class AccountModel implements Serializable {
         this.accountNumber = accountNumber;
     }
     
+
     public UserModel getUser() {
         return user;
     }
@@ -46,10 +68,10 @@ public class AccountModel implements Serializable {
         this.user = userId;
     }
 
-    public Float getValue() {
+    public Double getValue() {
         return value;
     }
-    public void setValue(Float value) {
+    public void setValue(Double value) {
         this.value = value;
     }
     

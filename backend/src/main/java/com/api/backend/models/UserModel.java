@@ -3,6 +3,9 @@ package com.api.backend.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -22,6 +25,7 @@ public class UserModel implements UserDetails, Serializable {
     @Column(name="username", nullable = false, unique = true, length = 12)
     private String username;
     @Column(name="password", nullable = false)
+    @JsonIgnore
     private String password;
     
     @ManyToMany
@@ -31,8 +35,18 @@ public class UserModel implements UserDetails, Serializable {
     private List<RoleModel> roles;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Set<AccountModel> accounts;
 
+    public UserModel(){
+        this.userId = UUID.randomUUID();
+    }
+
+    public UserModel(String username, String password) {
+        this.userId = UUID.randomUUID();
+        this.username = username;
+        this.password = password;
+    }
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

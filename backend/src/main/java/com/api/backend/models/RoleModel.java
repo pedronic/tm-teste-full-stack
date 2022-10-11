@@ -17,7 +17,7 @@ public class RoleModel implements GrantedAuthority, Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID roleId;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true)
+    @Column(name="role_name",nullable = false, unique = true)
     private RoleName roleName;
 
 

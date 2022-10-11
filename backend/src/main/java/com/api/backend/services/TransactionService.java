@@ -1,8 +1,10 @@
 package com.api.backend.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.backend.models.TransactionModel;
+import com.api.backend.models.UserModel;
 import com.api.backend.repositories.TransactionRepository;
 
 import java.util.UUID;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 
 @Service
 public class TransactionService {
+    @Autowired
     final TransactionRepository transactionRepository;
 
     public TransactionService(TransactionRepository transactionRepository){
@@ -30,7 +33,7 @@ public class TransactionService {
         return transactionRepository.findByAccountTo(accountTo);
     }
     
-    public Optional<List<TransactionModel>> findByUser(UUID user) {
+    public Optional<List<TransactionModel>> findByUser(UserModel user) {
         return transactionRepository.findByUser(user);
     }
     
