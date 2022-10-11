@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.api.backend.dtos.FeeDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -43,6 +46,32 @@ public class FeeModel implements Serializable {
     @JsonManagedReference
     private Set<FeeModel> fee;
     
+    public FeeModel(){
+        this.feeId = UUID.randomUUID();
+    }
+
+    public FeeModel(String type, Integer intervalMin, Integer intervalMax, BigDecimal valueMin, BigDecimal valueMax, BigDecimal feeValue, BigDecimal feeRate) {
+        this.feeId = UUID.randomUUID();
+        this.type = type;
+        this.intervalMin = intervalMin;
+        this.intervalMax = intervalMax;
+        this.valueMin = valueMin;
+        this.valueMax = valueMax;
+        this.feeValue = feeValue;
+        this.feeRate = feeRate;
+    }
+
+    @Autowired
+    public FeeModel(FeeDto feeDto) {
+        this.feeId = feeDto.getFeeId();
+        this.type = feeDto.getType();
+        this.intervalMin = feeDto.getIntervalMin();
+        this.intervalMax = feeDto.getIntervalMax();
+        this.valueMin = feeDto.getValueMin();
+        this.valueMax = feeDto.getValueMax();
+        this.feeValue = feeDto.getFeeValue();
+        this.feeRate = feeDto.getFeeRate();
+    }
     
     public UUID getFeeId() {
         return feeId;

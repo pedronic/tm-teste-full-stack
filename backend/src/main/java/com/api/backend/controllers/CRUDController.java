@@ -3,13 +3,11 @@ package com.api.backend.controllers;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.backend.configs.security.UserDetailsServiceImpl;
 import com.api.backend.dtos.AccountDto;
-import com.api.backend.dtos.test_FeeDto;
+import com.api.backend.dtos.FeeDto;
 import com.api.backend.dtos.SimulationDto;
 import com.api.backend.dtos.TransactionDto;
 import com.api.backend.models.AccountModel;
@@ -66,10 +64,10 @@ public class CRUDController {
     }
 
     /**
-     * Use this method for creating and associating new accounts with existing users.
+     * Use this method for creating and associating new accounts with existing
+     * users.
      * 
      * @param username
-     * @return
      */
     @PostMapping("accounts/new")
     public ResponseEntity<AccountModel> setNewAccount(@RequestBody AccountDto username) {
@@ -83,14 +81,40 @@ public class CRUDController {
         return ResponseEntity.status(HttpStatus.CREATED).body(accountService.save(_newAccount));
     }
 
+    /**
+     * Use this method for creating fees and populating the database.
+     * 
+     * @param feeDto
+     */
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PostMapping("fee/new")
+    public ResponseEntity<String> setNewFee(@RequestBody @Valid FeeDto feeDto) {
+        if (!feeService.findByType(feeDto.getType()).isEmpty()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Fee already registered:\n" + feeService.findByType(feeDto.getType()).get().toString());
+        }
+        FeeModel _new_fee = new FeeModel(feeDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(feeService.getFeeRepository().save(_new_fee).toString());
+    }
 
-
+    /**
+     * Use this method for retrieving all Accounts from database
+     * 
+     * @param pageable
+     * @return All Accounts
+     */
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("accounts")
     public ResponseEntity<Page<AccountModel>> getAllAccounts(@PageableDefault Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(accountService.getAccountRepository().findAll(pageable));
     }
 
+    /**
+     * Use this method to retrieve all Accounts from the specified User
+     * 
+     * @param username
+     * @return All accounts from user
+     */
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("accounts/{username}")
     public ResponseEntity<List<AccountModel>> getAccountsFromUser(@PathVariable(value = "username") String username) {
@@ -102,6 +126,12 @@ public class CRUDController {
         return ResponseEntity.status(HttpStatus.OK).body(accountModel.get());
     }
 
+    /**
+     * Use this method to retrieve all Transactions from the specified User
+     * 
+     * @param username
+     * @return All transactions from user
+     */
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("transactions/{username}")
     public ResponseEntity<List<TransactionModel>> getTransactionsByUsername(
@@ -117,6 +147,12 @@ public class CRUDController {
         return ResponseEntity.status(HttpStatus.OK).body(transactionModel.get());
     }
 
+    /**
+     * Use this method to Schedule a new Transaction
+     * 
+     * @param username
+     * @return JSON with the scheduled transaction
+     */
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping("transactions/new")
     public ResponseEntity<String> scheduleNewTransaction(@RequestBody TransactionDto transactionDto) {
@@ -142,12 +178,12 @@ public class CRUDController {
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
                     .body("Schedule Interval not allowed for this Transaction Value!");
         }
-        
+
         if (!_val_fee_check.get().contains(_interval_fee_check.get())) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("Unnexpected conflict in the database detected. Please try again in a few moments!");
         }
-        
+
         BigDecimal _fee_value = transactionDto.getValue().multiply(_interval_fee_check.get().getFee_rate());
         _fee_value = _fee_value.add(_interval_fee_check.get().getFee_value());
 
@@ -158,10 +194,22 @@ public class CRUDController {
         _newTransaction.setAccountTo(transactionDto.getAccountTo());
         _newTransaction.setDateScheduled(transactionDto.getDateScheduled());
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(transactionService.getTransactionRepository().save(_newTransaction).toString());
+        var _valid_transaction = _newTransaction.getValue()
+                .compareTo(accountService.findByAccountNumber(transactionDto.getAccountFrom()).get().getValue()) <= 0;
+        if (!_valid_transaction) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(
+                    "{\n valid: " + Boolean.toString(_valid_transaction) + ",\n data:\n\t " + transactionService.getTransactionRepository().save(_newTransaction).toString() + "\n}");
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("{\n valid: " + Boolean.toString(_valid_transaction) + ",\n data:\n\t " + transactionService.getTransactionRepository().save(_newTransaction).toString() + "\n}");
     }
 
+    /**
+     * Use this method to Simulate a new Transaction
+     * 
+     * @param username
+     * @return JSON with the simulated transaction informations and validity
+     */
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping("transactions/sim")
     public ResponseEntity<String> simulateNewTransaction(@RequestBody TransactionDto transactionDto) {
@@ -178,7 +226,7 @@ public class CRUDController {
         var interval = ChronoUnit.DAYS.between(LocalDateTime.now(), transactionDto.getDateScheduled());
         var _interval_fee_check = feeService.findByIntervalMinLessThanAndIntervalMaxGreaterThanEqual((int) interval);
         if (!_interval_fee_check.isPresent()) {
-            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
                     .body("Schedule Interval not allowed for this Transaction Value!");
         }
         if (!_val_fee_check.get().contains(_interval_fee_check.get())) {
@@ -192,8 +240,14 @@ public class CRUDController {
         sim.setFee_total(_fee_value.add(_interval_fee_check.get().getFee_value()));
         sim.setSubtotal(transactionDto.getValue().add(_fee_value.add(_interval_fee_check.get().getFee_value())));
         sim.setType(_interval_fee_check.get().getType());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(sim.toString());
+        var _valid_transaction = sim.getSubtotal()
+                .compareTo(accountService.findByAccountNumber(transactionDto.getAccountFrom()).get().getValue()) <= 0;
+        if (!_valid_transaction) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(
+                    "{\n valid: " + Boolean.toString(_valid_transaction) + ",\n data:\n\t " + sim.toString() + "\n}");
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("{\n valid: " + Boolean.toString(_valid_transaction) + ",\n data:\n\t " + sim.toString() + "\n}");
     }
 
 }

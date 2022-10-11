@@ -1,5 +1,7 @@
 package com.api.backend.dtos;
 
+import java.math.BigDecimal;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -10,13 +12,13 @@ public class AccountDto {
     private String username;
 
     @NotBlank
-    private Double value;
+    private BigDecimal value;
 
-    public Double getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
 

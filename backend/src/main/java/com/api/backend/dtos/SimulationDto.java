@@ -47,10 +47,10 @@ public class SimulationDto {
     @Override
     public String toString() {
         return "{\n" +
-        "\tfee_rate: "+ getFee_rate().setScale(2).toPlainString()+",\n"+
-        "\tfee_total: "+ getFee_total().setScale(2).toPlainString()+",\n"+
-        "\tfee_value: "+ getFee_value().setScale(2).toPlainString()+",\n"+
-        "\tsubtotal: "+ getSubtotal().setScale(2).toPlainString()+",\n"+
+        "\tfee_rate: "+ getFee_rate().toPlainString()+",\n"+
+        "\tfee_total: "+ getFee_total().toPlainString()+",\n"+
+        "\tfee_value: "+ getFee_value().toPlainString()+",\n"+
+        "\tsubtotal: "+ getSubtotal().toPlainString()+",\n"+
         "\ttype: "+ getType()+"\n"+
         "}";
     }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class AccountModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer accountNumber;
     @Column(name="value",nullable = false)
-    private Double value;
+    private BigDecimal value;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="user_id")
@@ -40,14 +41,14 @@ public class AccountModel implements Serializable {
 
     public AccountModel(){
         this.accountId = UUID.randomUUID();
-        this.value = 0.00;
+        this.value = new BigDecimal(0);
     }
 
     public AccountModel(Integer accountNumber){
         this.accountId = UUID.randomUUID();
         this.accountNumber = accountNumber;
     }
-    public AccountModel(Integer accountNumber, Double value){
+    public AccountModel(Integer accountNumber, BigDecimal value){
         this.accountId = UUID.randomUUID();
         this.accountNumber = accountNumber;
         this.value = value;
@@ -68,10 +69,10 @@ public class AccountModel implements Serializable {
         this.user = userId;
     }
 
-    public Double getValue() {
+    public BigDecimal getValue() {
         return value;
     }
-    public void setValue(Double value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
     
