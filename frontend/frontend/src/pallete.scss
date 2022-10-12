@@ -3,3 +3,15 @@ $color-primary-darker: #ced4daff !global;
 $color-alternate: #adb5bdff !global;
 $color-secondary-lighter: #6c757dff !global;
 $color-secondary: #212529ff !global;
+
+$charcoal: #264653ff;
+$persian-green: #2a9d8fff;
+$maize-crayola: #e9c46aff;
+$sandy-brown: #f4a261ff;
+$burnt-sienna: #e76f51ff;
+
+$color-success: $persian-green;
+$color-warning: $maize-crayola;
+$color-error: $burnt-sienna;
+$color-highlight: $sandy-brown;
+$color-font-alternate: $charcoal;

@@ -1,0 +1,59 @@
+@import "../../styles.scss";
+
+.login {
+  grid-area: page;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 4fr;
+  grid-template-areas:
+    "login-header"
+    "login-form";
+  justify-content: stretch;
+  align-content: stretch;
+  justify-items: center;
+}
+
+.login-header {
+  grid-area: login-header;
+  color: $color-font-alternate;
+}
+
+.login-form {
+  grid-area: login-form;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 10px 1fr 1fr 1fr 10px;
+  grid-template-areas:
+    "."
+    "username"
+    "password"
+    "action"
+    ".";
+  min-height: 300px;
+  max-width: 450px;
+  border: 1px solid $color-primary-darker;
+  border-radius: 3px;
+  box-shadow: 0.5px 1.5px $color-primary-darker;
+}
+
+.username {
+  grid-area: username;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.password {
+  grid-area: password;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action {
+  grid-area: action;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

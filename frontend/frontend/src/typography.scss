@@ -1,94 +1,94 @@
 @import 'pallete.scss';
 h1 {
-  font-size: 48px;
-  line-height: 52px;
-  font-weight: 700;
-  margin: 2.5px auto;
-  letter-spacing: -1.2px;
-  text-shadow: -1.5px 1.3px lighten($color-secondary-lighter, 7);
+  font-size: 48px !important;
+  line-height: 52px !important;
+  font-weight: 700 !important;
+  margin: 2.5px auto !important;
+  letter-spacing: -1.2px !important;
+  text-shadow: -1.5px 1.3px lighten($color-secondary-lighter, 7) !important;
   @media screen and (max-width: 767px) {
-    font-size: 40px;
-    line-height: 38px;
-    font-weight: 700;
-    margin: 0 3px 0 0;
-    letter-spacing: -1.2px;
+    font-size: 40px !important;
+    line-height: 38px !important;
+    font-weight: 700 !important;
+    margin: 0 3px 0 0 !important;
+    letter-spacing: -1.2px !important;
   }
 }
 
 h2 {
-  font-size: 40px;
-  line-height: 44px;
-  font-weight: 700;
-  margin: 2.5px auto;
-  letter-spacing: -1px;
+  font-size: 40px !important;
+  line-height: 44px !important;
+  font-weight: 700 !important;
+  margin: 2.5px auto !important;
+  letter-spacing: -1px !important;
   @media screen and (max-width: 767px) {
-    font-size: 32px;
-    line-height: 36px;
-    font-weight: 700;
-    margin: 2.5px auto;
-    letter-spacing: -1px;
+    font-size: 32px !important;
+    line-height: 36px !important;
+    font-weight: 700 !important;
+    margin: 2.5px auto !important;
+    letter-spacing: -1px !important;
   }
 }
 
 h3 {
-  font-size: 32px;
-  line-height: 36px;
-  font-weight: 700;
-  margin: 2.5px auto;
-  letter-spacing: -0.8px;
+  font-size: 32px !important;
+  line-height: 36px !important;
+  font-weight: 700 !important;
+  margin: 2.5px auto !important;
+  letter-spacing: -0.8px !important;
   @media screen and (max-width: 767px) {
-    font-size: 24px;
-    line-height: 28px;
-    font-weight: 700;
-    margin: 2.5px auto;
-    letter-spacing: -0.8px;
+    font-size: 24px !important;
+    line-height: 28px !important;
+    font-weight: 700 !important;
+    margin: 2.5px auto !important;
+    letter-spacing: -0.8px !important;
   }
 }
 
 h4 {
-  font-size: 24px;
-  line-height: 28px;
-  font-weight: 700;
-  margin: 2.5px auto;
-  letter-spacing: -0.6px;
+  font-size: 24px !important;
+  line-height: 28px !important;
+  font-weight: 700 !important;
+  margin: 2.5px auto !important;
+  letter-spacing: -0.6px !important;
   @media screen and (max-width: 767px) {
-    font-size: 20px;
-    line-height: 24px;
-    font-weight: 700;
-    margin: 2.5px auto;
-    letter-spacing: -0.6px;
+    font-size: 20px !important;
+    line-height: 24px !important;
+    font-weight: 700 !important;
+    margin: 2.5px auto !important;
+    letter-spacing: -0.6px !important;
   }
 }
 
 h5 {
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 700;
-  margin: 2.5px auto;
+  font-size: 20px !important;
+  line-height: 24px !important;
+  font-weight: 700 !important;
+  margin: 2.5px auto !important;
   @media screen and (max-width: 767px) {
-    font-size: 18px;
-    line-height: 22px;
-    font-weight: 700;
-    margin: 2.5px auto;
+    font-size: 18px !important;
+    line-height: 22px !important;
+    font-weight: 700 !important;
+    margin: 2.5px auto !important;
   }
 }
 
 h6 {
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 700;
-  margin: 2.5px auto;
+  font-size: 16px !important;
+  line-height: 20px !important;
+  font-weight: 700 !important;
+  margin: 2.5px auto !important;
 }
 
 p {
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-  margin: 2.5px auto;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  font-weight: 400 !important;
+  margin: 2.5px auto !important;
   &.bold {
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 700;
-    margin: 2.5px auto;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    font-weight: 700 !important;
+    margin: 2.5px auto !important;
   }
 }
