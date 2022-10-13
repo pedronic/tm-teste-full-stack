@@ -15,3 +15,5 @@ $color-warning: $maize-crayola;
 $color-error: $burnt-sienna;
 $color-highlight: $sandy-brown;
 $color-font-alternate: $charcoal;
+
+$color-background-header: mix(lighten($color-success, 25), $color-alternate, 30);

@@ -1,0 +1,131 @@
+@import "../../styles.scss";
+
+.scheduler {
+  grid-area: page;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 250px 1fr;
+  grid-template-areas:
+    "scheduler-filter"
+    "scheduler-table";
+  align-content: stretch;
+  justify-content: stretch;
+
+  @media screen and (min-width: 767px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+.filter {
+  grid-area: scheduler-filter;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "filter-data"
+    "simulation";
+  &-data {
+    grid-area: filter-data;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "data-inputs data-inputs data-inputs"
+      ". data-buttons data-buttons";
+
+    @media screen and (max-width: 767px) {
+      grid-template-columns: 3fr 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: "data-inputs data-buttons";
+    }
+
+    &-inputs {
+      grid-area: data-inputs;
+      display: flex;
+      justify-content: space-evenly;
+      gap: 1em;
+      @media screen and (max-width: 767px) {
+        flex-direction: column;
+        margin: 0 15px;
+      }
+
+      &-text {
+        gap: 1em;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    &-buttons {
+      grid-area: data-buttons;
+      display: flex;
+      justify-content: flex-end;
+      @media screen and (max-width: 767px) {
+        flex-direction: column;
+        margin: 0 15px;
+        justify-content: flex-start;
+      }
+      .button {
+        max-height: 10px;
+        margin-right: 0;
+        @media screen and (max-width: 767px) {
+          margin-top: 4px;
+          margin-bottom: 4px;
+        }
+      }
+    }
+  }
+
+  &-simulation {
+    grid-area: simulation;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "table";
+    // gap: 20px;
+    @media screen and (max-width: 767px) {
+      grid-template-columns: 3fr 1fr;
+      gap: 0px;
+      grid-template-rows: 1fr;
+      grid-template-areas: "table";
+    }
+
+    &-table {
+      grid-area: table;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 20px 1fr;
+      grid-template-areas:
+        "sim-table-header"
+        "sim-table-value";
+      align-content: stretch;
+      justify-content: stretch;
+      gap: 1ch;
+      @media screen and (max-width: 767px) {
+        margin: 0 15px;
+      }
+
+      &-header {
+        grid-area: sim-table-header;
+        background-color: $color-background-header;
+        padding-left: 1.5ch;
+        display: grid;
+        align-items: center;
+      }
+
+      &-value {
+        grid-area: sim-table-value;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 1ch;
+      }
+    }
+  }
+}
+
+.table {
+  grid-area: scheduler-table;
+  display: grid;
+}

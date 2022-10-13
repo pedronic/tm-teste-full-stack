@@ -1,4 +1,3 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use "@angular/material" as mat;
@@ -71,20 +70,25 @@ body {
 }
 
 .button {
-  all: unset ;
-  border-radius: 4px ;
-  border: 1px solid $charcoal ;
-  background-color: #fafafa ;
-  height: 40px ;
-  width: 200px ;
-  margin: 0 8px 16px ;
-  padding: 16px ;
-  display: flex ;
-  flex-direction: row ;
-  justify-content: center ;
-  align-items: center ;
-  transition: all 0.2s ease-in-out ;
-  line-height: 24px ;
+  all: unset;
+  border-radius: 4px;
+  border: 1px solid $charcoal;
+  background-color: #fafafafa;
+  height: 40px;
+  width: 200px;
+  margin: 0 8px 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  line-height: 24px;
+  color: $charcoal;
+  &:disabled {
+    background-color: $color-primary-darker;
+    color: $color-secondary-lighter;
+  }
 }
 
 .button-container .button:not(:last-child) {
@@ -96,25 +100,25 @@ body {
   width: 168px;
 }
 
-.button-container .button:not(.highlight-button) {
+.button-container .button {
   cursor: pointer;
 }
 
-.button:hover {
+.button:not(:disabled):hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
 }
-.button:active {
+.button:not(:disabled):active {
   transform: translateY(+2px);
   box-shadow: 0 1.8px 11px rgba(0, 0, 0, 0.35);
 }
 
-.button-container .button:not(.highlight-button):hover .material-icons path {
+.button-container .button:hover .material-icons path {
   fill: rgb(105, 103, 103);
 }
 
 .button.highlight-button {
-  background-color: #1976d2;
+  background-color: lighten($color-highlight, 20);
   color: white;
   font-weight: 600;
   border: none;
@@ -123,19 +127,13 @@ body {
   position: relative;
 }
 
-.button.button.highlight-button span {
-  margin-left: 60px;
-}
-
-a,
-a:visited,
-a:hover {
-  color: #1976d2;
+a {
+  color: $color-font-alternate;
   text-decoration: none;
-}
-
-a:hover {
-  color: #125699;
+  &:hover {
+    color: #1976d2;
+    text-decoration: underline;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -144,13 +142,9 @@ a:hover {
     width: 100%;
   }
 
-  .button:not(.highlight-button) {
+  .button {
     height: 16px;
     margin: 8px 0;
-  }
-
-  .button.highlight-button span {
-    margin-left: 72px;
   }
 }
 
@@ -163,5 +157,21 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

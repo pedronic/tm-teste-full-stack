@@ -1,0 +1,95 @@
+<div class="scheduler">
+  <form class="filter">
+    <div class="filter-data">
+      <div class="filter-data-inputs">
+        <mat-select placeholder="Account From:"  name="item">
+          <mat-option *ngFor="" [value]="">
+            <!-- {{item.viewValue}} -->
+          </mat-option>
+        </mat-select>
+        <mat-select placeholder="Account To:"  name="item">
+          <mat-option *ngFor="" [value]="">
+            <!-- {{item.viewValue}} -->
+          </mat-option>
+        </mat-select>
+        <div class="filter-data-inputs-text">
+          <mat-form-field>
+            <span matPrefix>$&nbsp;</span>
+            <input matInput placeholder="Value" type="number">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Schedule Date:" type="datetime-local" [min]="today" >
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="filter-data-buttons">
+          <button class="button button-small" (click)="simulate()">SIMULATE</button>
+          <button class="button button-small" (click)="schedule()" disabled>SCHEDULE</button>
+      </div>
+    </div>
+
+    <div class="filter-simulation">
+      <div class="filter-simulation-table">
+        <span class="filter-simulation-table-header">Transaction Simulation</span>
+        <div class="filter-simulation-table-value">
+          <mat-form-field>
+            <input matInput placeholder="Type" value="A" disabled>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Rate" value="3.18" disabled>
+            <span matSuffix>&nbsp;%</span>
+          </mat-form-field>
+          <mat-form-field>
+            <span matPrefix>$&nbsp;</span>
+            <input matInput placeholder="Fee" value="12.00" disabled>
+          </mat-form-field>
+          <mat-form-field>
+            <span matPrefix>$&nbsp;</span>
+            <input matInput placeholder="Tax Total" value="34.75" disabled>
+          </mat-form-field>
+          <mat-form-field>
+            <span matPrefix>$&nbsp;</span>
+            <input matInput placeholder="Subtotal" [value]="subtotal" disabled>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="table">
+    <table *ngIf="dataSource.length > 0" mat-table #table [dataSource]="dataSource">
+      <ng-container matColumnDef="accountFrom">
+        <th mat-header-cell *matHeaderCellDef> Account From </th>
+        <td mat-cell *matCellDef="let row"> {{row.accountFrom}} </td>
+      </ng-container>
+      <ng-container matColumnDef="accountTo">
+        <th mat-header-cell *matHeaderCellDef> Account To </th>
+        <td mat-cell *matCellDef="let row"> {{row.accountTo}} </td>
+      </ng-container>
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef> Total Value </th>
+        <td mat-cell *matCellDef="let row"> {{row.value}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fee">
+        <th mat-header-cell *matHeaderCellDef> Tax Total </th>
+        <td mat-cell *matCellDef="let row"> {{row.fee}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dateScheduled">
+        <th mat-header-cell *matHeaderCellDef> Transaction Date </th>
+        <td mat-cell *matCellDef="let row"> {{row.dateScheduled}} </td>
+      </ng-container>
+      <ng-container matColumnDef="executed">
+        <th mat-header-cell *matHeaderCellDef> Executed </th>
+        <td mat-cell *matCellDef="let row"> {{row.executed}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dateCreated">
+        <th mat-header-cell *matHeaderCellDef> Created at </th>
+        <td mat-cell *matCellDef="let row"> {{row.dateCreated}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="['accountFrom','accountTo','value','fee','dateScheduled','executed','dateCreated']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['accountFrom','accountTo','value','fee','dateScheduled','executed','dateCreated'];"></tr>
+    </table>
+
+    <h4 *ngIf="!(dataSource.length > 0)">User has no Transactions registered yet</h4>
+  </div>
+</div>

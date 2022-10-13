@@ -5,7 +5,7 @@
   display: grid;
   justify-content: stretch;
   align-content: stretch;
-  background-color: $color-alternate;
+  background-color: $color-background-header;
   grid-template-columns: 1fr 4fr 1fr;
   grid-template-areas:
   "user title .";
