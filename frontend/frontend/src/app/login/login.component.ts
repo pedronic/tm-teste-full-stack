@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from '../models/user.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   templateUrl: './login.component.html',
@@ -6,12 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  public form: FormGroup;
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _authService: AuthService
+  ) {
+    this.form = this._formBuilder.group({
+      username: [null, [Validators.required]],
+      password: [null, [Validators.required]]
+    });
+  }
 
   ngOnInit(): void {
   }
 
   public login():void{
-    console.log("Login");
+    let payload: User = new User(this.form.get('username')?.value, this.form.get('password')?.value);
+    this._authService.login(payload);
   }
 }

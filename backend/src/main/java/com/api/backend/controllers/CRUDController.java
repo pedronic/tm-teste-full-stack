@@ -38,7 +38,7 @@ import com.api.backend.services.RoleService;
 import com.api.backend.services.TransactionService;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+// @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/v1/")
 public class CRUDController {
 
@@ -198,10 +198,10 @@ public class CRUDController {
                 .compareTo(accountService.findByAccountNumber(transactionDto.getAccountFrom()).get().getValue()) <= 0;
         if (!_valid_transaction) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(
-                    "{\n valid: " + Boolean.toString(_valid_transaction) + ",\n data:\n\t " + transactionService.getTransactionRepository().save(_newTransaction).toString() + "\n}");
+                    "{\n \"valid\": " + Boolean.toString(_valid_transaction) + ",\n \"data\":\n\t " + transactionService.getTransactionRepository().save(_newTransaction).toString() + "\n}");
         }
         return ResponseEntity.status(HttpStatus.OK)
-                .body("{\n valid: " + Boolean.toString(_valid_transaction) + ",\n data:\n\t " + transactionService.getTransactionRepository().save(_newTransaction).toString() + "\n}");
+                .body("{\n \"valid\": " + Boolean.toString(_valid_transaction) + ",\n \"data\":\n\t " + transactionService.getTransactionRepository().save(_newTransaction).toString() + "\n}");
     }
 
     /**
@@ -231,7 +231,7 @@ public class CRUDController {
         }
         if (!_val_fee_check.get().contains(_interval_fee_check.get())) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("Unnexpected conflict in the database detected. Please try again in a few moments!");
+                    .body("Unexpected conflict in the database detected. Please try again in a few moments!");
         }
         SimulationDto sim = new SimulationDto();
         sim.setFee_rate(_interval_fee_check.get().getFee_rate());
@@ -244,10 +244,10 @@ public class CRUDController {
                 .compareTo(accountService.findByAccountNumber(transactionDto.getAccountFrom()).get().getValue()) <= 0;
         if (!_valid_transaction) {
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(
-                    "{\n valid: " + Boolean.toString(_valid_transaction) + ",\n data:\n\t " + sim.toString() + "\n}");
+                    "{\n \"valid\": " + Boolean.toString(_valid_transaction) + ",\n \"data\":\n\t " + sim.toString() + "\n}");
         }
         return ResponseEntity.status(HttpStatus.OK)
-                .body("{\n valid: " + Boolean.toString(_valid_transaction) + ",\n data:\n\t " + sim.toString() + "\n}");
+                .body("{\n \"valid\": " + Boolean.toString(_valid_transaction) + ",\n \"data\":\n\t " + sim.toString() + "\n}");
     }
 
 }

@@ -1,6 +1,6 @@
 <div class="login">
   <h3 class="login-header">LOGIN</h3>
-  <form class="login-form">
+  <form class="login-form" [formGroup]="form">
     <mat-form-field class="username">
       <input
         matInput
@@ -10,10 +10,17 @@
         autofocus
         autocomplete="on"
         maxlength="100"
+        formControlName="username"
       />
     </mat-form-field>
     <mat-form-field class="password">
-      <input matInput type="password" placeholder="Password" maxlength="100" />
+      <input
+        matInput
+        type="password"
+        placeholder="Password"
+        maxlength="100"
+        formControlName="password"
+      />
     </mat-form-field>
     <div class="action">
       <button class="button button-small" (click)="login()">SIGN IN</button>

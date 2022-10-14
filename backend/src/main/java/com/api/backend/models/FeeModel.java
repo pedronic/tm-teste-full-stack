@@ -2,6 +2,7 @@ package com.api.backend.models;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Set;
 import java.util.UUID;
 
@@ -143,10 +144,10 @@ public class FeeModel implements Serializable {
         "\t type: "+ getType()+",\n"+
         "\t intervalMin: "+ getInterval_min()+",\n"+
         "\t intervalMax: "+ getInterval_max()+",\n"+
-        "\t valueMin: "+ getValue_min().setScale(2).toPlainString()+",\n"+
-        "\t valueMax: "+ getValue_max().setScale(2).toPlainString()+",\n"+
-        "\t feeValue: "+ getFee_value().setScale(2).toPlainString()+",\n"+
-        "\t feeRate: "+ getFee_rate().setScale(4).toPlainString()+",\n"+
+        "\t valueMin: "+ getValue_min().setScale(2, RoundingMode.UP).toPlainString()+",\n"+
+        "\t valueMax: "+ getValue_max().setScale(2, RoundingMode.UP).toPlainString()+",\n"+
+        "\t feeValue: "+ getFee_value().setScale(2, RoundingMode.UP).toPlainString()+",\n"+
+        "\t feeRate: "+ getFee_rate().setScale(4, RoundingMode.UP).toPlainString()+",\n"+
         "}";
     }
 }

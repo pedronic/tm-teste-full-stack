@@ -52,7 +52,7 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 100vh;
-  grid-template-areas: "container";
+  grid-template-areas: "app-container";
   justify-content: stretch;
   align-content: stretch;
   color: $color-secondary;
@@ -175,3 +175,9 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";

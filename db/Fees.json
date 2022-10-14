@@ -1,0 +1,58 @@
+{
+    "fees": [
+        {
+            "type": "A",
+            "intervalMin": -1,
+            "intervalMax": 0,
+            "valueMin": 0.00,
+            "valueMax": 1000.00,
+            "feeValue": 3.00,
+            "feeRate": 0.03
+        },
+        {
+            "type": "B",
+            "intervalMin": 0,
+            "intervalMax": 10,
+            "valueMin": 1000.00,
+            "valueMax": 2000.00,
+            "feeValue": 12.00,
+            "feeRate": 0.00
+        },
+        {
+            "type": "C1",
+            "intervalMin": 10,
+            "intervalMax": 19,
+            "valueMin": 2000.00,
+            "valueMax": 10000000.00,
+            "feeValue": 0.00,
+            "feeRate": 0.0820
+        },
+        {
+            "type": "C2",
+            "intervalMin": 20,
+            "intervalMax": 29,
+            "valueMin": 2000.00,
+            "valueMax": 10000000.00,
+            "feeValue": 0.00,
+            "feeRate": 0.0690
+        },
+        {
+            "type": "C3",
+            "intervalMin": 30,
+            "intervalMax": 39,
+            "valueMin": 2000.00,
+            "valueMax": 10000000.00,
+            "feeValue": 0.00,
+            "feeRate": 0.0470
+        },
+        {
+            "type": "C4",
+            "intervalMin": 40,
+            "intervalMax": 120,
+            "valueMin": 2000.00,
+            "valueMax": 10000000.00,
+            "feeValue": 0.00,
+            "feeRate": 0.0170
+        }
+    ]
+}

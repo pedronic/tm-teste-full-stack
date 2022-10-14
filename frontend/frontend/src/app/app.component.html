@@ -1,5 +1,8 @@
-<div class="container">
+<div class="app-container">
   <div class="header">
+    <div class="user" *ngIf="utilService.isLoggedIn()">
+      <button class="button button-small user-button-logout" mat-fab (click)="authService.logout()"><mat-icon>logout</mat-icon> Logout from: <p class="bold">{{utilService.getUserInfo()}}</p> </button>
+    </div>
     <div class="title">
       <h1>Transaction Scheduler</h1>
     </div>
@@ -9,7 +12,10 @@
   </div>
 
   <div class="footer">
-    Coded by&nbsp;<a href="https://www.linkedin.com/in/pedro-nicolau-arcuri/" target="_blank">Pedro Nicolau Arcuri</a>
+    Coded by&nbsp;<a
+      href="https://www.linkedin.com/in/pedro-nicolau-arcuri/"
+      target="_blank"
+      >Pedro Nicolau Arcuri</a
+    >
   </div>
 </div>
-

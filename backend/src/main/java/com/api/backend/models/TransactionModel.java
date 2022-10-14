@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.UUID;
 import java.time.LocalDateTime;
 
@@ -113,19 +114,19 @@ public class TransactionModel implements Serializable {
     public void setUser(UserModel user) {
         this.user = user;
     }
-    
+
     @Override
     public String toString() {
         return "{\n"+
-        "\t transactionId: "+ getTransactionId().toString()+",\n"+
-        "\t accountFrom: "+ getAccountFrom().toString()+",\n"+
-        "\t accountTo: "+ getAccountTo().toString()+",\n"+
-        "\t value: "+ getValue().setScale(2).toPlainString()+",\n"+
-        "\t fee_value: "+ getFee_value().setScale(2).toPlainString()+",\n"+
-        "\t dateCreated: "+ getDateCreated()+",\n"+
-        "\t dateScheduled: "+ getDateScheduled()+",\n"+
-        "\t executed: "+ isExecuted() +",\n"+
-        "\t fee: "+ getFee().getType()+"\n"+
+        "\t \"transactionId\": \""+ getTransactionId().toString()+"\",\n"+
+        "\t \"accountFrom\": "+ getAccountFrom().toString()+",\n"+
+        "\t \"accountTo\": "+ getAccountTo().toString()+",\n"+
+        "\t \"value\": "+ getValue().setScale(2, RoundingMode.UP)+",\n"+
+        "\t \"fee_value\": "+ getFee_value().setScale(2, RoundingMode.UP)+",\n"+
+        "\t \"dateCreated\": \""+ getDateCreated()+"\",\n"+
+        "\t \"dateScheduled\": \""+ getDateScheduled()+"\",\n"+
+        "\t \"executed\": "+ isExecuted() +",\n"+
+        "\t \"fee\": \""+ getFee().getType()+"\"\n"+
         "}";
     }
     

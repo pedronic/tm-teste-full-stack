@@ -13,9 +13,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "TB_ACCOUNT")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "accountId" )
 public class AccountModel implements Serializable {
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "account_id")

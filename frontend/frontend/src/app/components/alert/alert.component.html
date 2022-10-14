@@ -1,0 +1,5 @@
+<div class="app-alert-loop" *ngFor="let alert of alerts;">
+  <alert [type]="_TYPES[alert.type]" [dismissible]="true">
+    <strong>{{alert.status}}</strong>&nbsp;{{alert.message}}
+  </alert>
+</div>

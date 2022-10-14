@@ -2,6 +2,8 @@ package com.api.backend.dtos;
 
 import java.math.BigDecimal;
 import java.util.UUID;
+import java.math.RoundingMode;
+
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -35,13 +37,13 @@ public class FeeDto {
         this.intervalMin = intervalMin;
         this.intervalMax = intervalMax;
         this.valueMin = new BigDecimal(valueMin);
-        this.valueMin = this.valueMin.setScale(2);
+        this.valueMin = this.valueMin.setScale(2, RoundingMode.UP);
         this.valueMax = new BigDecimal(valueMax);
-        this.valueMax = this.valueMax.setScale(2);
+        this.valueMax = this.valueMax.setScale(2, RoundingMode.UP);
         this.feeValue = new BigDecimal(feeValue);
-        this.feeValue = this.feeValue.setScale(2);
+        this.feeValue = this.feeValue.setScale(2, RoundingMode.UP);
         this.feeRate = new BigDecimal(feeRate);
-        this.feeRate = this.feeRate.setScale(4);
+        this.feeRate = this.feeRate.setScale(4, RoundingMode.UP);
     }
     
     public UUID getFeeId() {
